@@ -4,6 +4,14 @@ namespace Storage {
     unsigned long sd_read_timestamp;
     int delay_sd_write = 1000; // delay between records in microseconds
 
+    void init() {
+        if (!STORAGE_ENABLED)
+            return;
+        while (!SD.begin(SDchipSelect)) {           //sd init
+            Log::error("SD initialization failed!", STORAGE_MODULE);
+        }
+        Log::info("SD initialization done.", STORAGE_MODULE);
+    }
 
     void write_data(String data, String file_name) {
         File myFile = SD.open(file_name.c_str(), FILE_WRITE);

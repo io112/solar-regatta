@@ -10,7 +10,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_C_COMPILER_WORKS 1)
 set(CMAKE_CXX_COMPILER_WORKS 1)
 
-project("solar" C CXX)
+project("solar-regatta" C CXX)
 
 include(CMakeListsPrivate.txt)
 
@@ -30,4 +30,4 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(Z_DUMMY_TARGET ${SRC_LIST} src/satellites.cpp include/satellites.h src/display.cpp include/dispaly.h src/storage.cpp include/storage.h src/bmv.cpp include/bmv.h src/mppt.cpp include/mppt.h src/motor.cpp include/motor.h include/controller.h src/controller.cpp)
+add_executable(Z_DUMMY_TARGET ${SRC_LIST})

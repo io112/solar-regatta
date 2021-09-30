@@ -8,11 +8,13 @@
 #include <Arduino.h>
 #include <WString.h>
 #include <SD.h>
+#include "log.h"
+#include "define.h"
 
 namespace Storage {
-    const int SDchipSelect = 53; // for SD
+#define SDchipSelect  53
 
-
+    void init();
 }
 
 #endif //SOLAR_STORAGE_H

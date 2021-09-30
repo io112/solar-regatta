@@ -1,7 +1,15 @@
 #include "bmv.h"
 
 namespace BMV {
+
+    void init(int baudRate) {
+        if (BMV_ENABLED)
+            BmvSerial.begin(baudRate);
+    }
+
     void read() {
+        if(!BMV_ENABLED)
+            return;
         char symbol;
         char s[20];
         String BMV_cmd_name = ""; // command name
@@ -9,8 +17,8 @@ namespace BMV {
         int i = 0;
         long BMV_cmd_value_int = 0;
 
-        while (bmv.available()) {
-            symbol = bmv.read();
+        while (BmvSerial.available()) {
+            symbol = BmvSerial.read();
             s[i] = symbol;
             /* Serial.print(s[i]);
              Serial.print(" ");

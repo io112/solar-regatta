@@ -5,10 +5,11 @@
 #include <WString.h>
 #include "storage.h"
 #include "dispaly.h"
-
+#include "define.h"
 
 namespace BMV {
-#define bmv           Serial3 // // serial-порт к которому подключён BMV702 (battery monitor)
+
+    void init(int baudRate);
 
     void read();
 }

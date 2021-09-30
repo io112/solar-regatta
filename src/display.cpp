@@ -4,14 +4,21 @@
 namespace Display {
     char buffer[80];
 
+    void init(int baudRate) {
+        if (DISPLAY_ENABLED)
+            DisplaySerial.begin(baudRate);  // открываем Serial-соединение с Nextion-модулем
+    }
+
     void commandEnd() {                     // команда поступающая в дисплей должна кончаться символами «0xFF0xFF0xFF»
         for (int i = 0; i < 3; i++) {
-            display.write(0xff);
+            DisplaySerial.write(0xff);
         }
     }
 
     void send(String name, String type, String value) {
-        display.print(sprintf(buffer, "%s.%s=\"%s\"", name.c_str(), type.c_str(), value.c_str()));
+        sprintf(buffer, "%s.%s=\"%s\"", name.c_str(), type.c_str(), value.c_str());
+        DisplaySerial.print(buffer);
+        Log::monitor(buffer, DISPLAY_MODULE);
         commandEnd();
     }
 
@@ -90,11 +97,13 @@ namespace Display {
     }
 
 
-    String readCommand() {
+    String read() {
+        if (!DISPLAY_ENABLED)
+            return "";
         String data = "";
-        while (display.available()) {
+        while (DisplaySerial.available()) {
             //Serial.println("events");
-            data += char(display.read());
+            data += char(DisplaySerial.read());
             //Serial.println(dataDisplay.length());
         }
         if (data) {

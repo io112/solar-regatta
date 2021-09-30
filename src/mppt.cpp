@@ -3,11 +3,14 @@
 namespace MPPT {
     SoftwareSerial mppt(11, 12); // RX, TX
 
-    void beginMPPT(int baudRate) {
-        mppt.begin(19200);
+    void init(int baudRate) {
+        if (MPPT_ENABLED)
+            mppt.begin(baudRate);
     }
 
     void read() {
+        if (!MPPT_ENABLED)
+            return;
         char symbol;
         char s[20];
         String MPPT_cmd_name = ""; // command name

@@ -12,7 +12,7 @@
 
 namespace MPPT {
 
-    void beginMPPT(int baudRate);
+    void init(int baudRate);
 
     void read();
 

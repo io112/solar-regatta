@@ -2,11 +2,14 @@
 #define SOLAR_DISPALY_H
 
 #include <Arduino.h>
+#include "define.h"
+#include "log.h"
 
 namespace Display {
-#define display       Serial2   // serial-порт к которому подключён Nextion-экран
 
-    String readCommand();
+    void init(int baudRate);
+
+    String read();
 
     void resetPoints();
 
@@ -35,6 +38,8 @@ namespace Display {
     void pointB(float lat, float lng);
 
     void time(String time);
+
+    void speed(float speed);
 }
 
 #endif //SOLAR_DISPALY_H
