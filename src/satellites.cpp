@@ -17,7 +17,7 @@ namespace Satellites {
     }
 
 
-    void init(int baudRate) {
+    void init(unsigned long baudRate) {
         if (SATELLITES_ENABLED) {
             GPS_SERIAL.begin(baudRate);
             nmea.setUnknownSentenceHandler(printUnknownSentence);
@@ -60,6 +60,7 @@ namespace Satellites {
 
     void printSatellites() {  // выводим количество видимых спутников
         Display::satellitesNum(nmea.getNumSatellites());
+        Log::info(String(nmea.getNumSatellites()), SATELLITES_MODULE);
     }
 
     void printTime() {  // выводим количество видимых спутников
@@ -107,17 +108,19 @@ namespace Satellites {
 
     void read() {
         if (SATELLITES_ENABLED) {
+            printTime();
             if (GPS_SERIAL.available()) {  // считываем данные и парсим
 //                MainSerial.write(GPS_SERIAL.read());
                 char c = GPS_SERIAL.read();
 //                MainSerial.print(c);
                 if (nmea.process(c)) {
-                    if (nmea.getNavSystem())
-                        Log::info(String(nmea.getNavSystem()), SATELLITES_MODULE);
-                    else
-                        Log::info("none", SATELLITES_MODULE);
+//                    if (nmea.getNavSystem())
+//                        Log::info(String(nmea.getNavSystem()), SATELLITES_MODULE);
+//                    else
+//                        Log::info("none", SATELLITES_MODULE);
                     printSatellites();
                     logCoords();
+                    printTime();
                 }
 //                Log::debug(GPS_SERIAL.readString(), SATELLITES_MODULE);
 //                gps.readParsing();       // проверяем состояние GPS-модуля

@@ -28,5 +28,5 @@
 #define STORAGE_MODULE      "STORAGE"
 #define MAIN_MODULE         "MAIN"
 
-#define LOG_LEVEL 20
+#define LOG_LEVEL 1
 #endif //SOLAR_DEFINE_H

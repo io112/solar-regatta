@@ -9,7 +9,7 @@
 
 namespace BMV {
 
-    void init(int baudRate);
+    void init(unsigned long baudRate);
 
     void read();
 }

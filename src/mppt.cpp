@@ -3,7 +3,7 @@
 namespace MPPT {
     SoftwareSerial mppt(11, 12); // RX, TX
 
-    void init(int baudRate) {
+    void init(unsigned long baudRate) {
         if (MPPT_ENABLED)
             mppt.begin(baudRate);
     }

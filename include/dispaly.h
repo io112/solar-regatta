@@ -7,7 +7,7 @@
 
 namespace Display {
 
-    void init(int baudRate);
+    void init(unsigned long baud);
 
     String read();
 

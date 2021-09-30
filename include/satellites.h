@@ -20,7 +20,7 @@ namespace Satellites {
         float speed;
     };
 
-    void init(int baudRate);
+    void init(unsigned long baudRate);
 
     void read();
 }

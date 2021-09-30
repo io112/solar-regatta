@@ -4,15 +4,18 @@
 namespace Display {
     char buffer[80];
 
-    void init(int baudRate) {
-        if (DISPLAY_ENABLED)
-            DisplaySerial.begin(baudRate);  // открываем Serial-соединение с Nextion-модулем
+    void init(unsigned long baud) {
+        if (DISPLAY_ENABLED) {
+            DisplaySerial.begin(baud);  // открываем Serial-соединение с Nextion-модулем
+            Log::debug("display started", DISPLAY_MODULE);
+        }
     }
 
     void commandEnd() {                     // команда поступающая в дисплей должна кончаться символами «0xFF0xFF0xFF»
         for (int i = 0; i < 3; i++) {
             DisplaySerial.write(0xff);
         }
+        Log::debug("command end", "");
     }
 
     void send(String name, String type, String value) {
