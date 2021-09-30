@@ -39,7 +39,7 @@ void setup() {
     //pinMode(A0,INPUT);
     display.begin(115200);  // открываем Serial-соединение с Nextion-модулем
     bmv.begin(19200);
-    MPPT::mppt.begin(19200);
+    MPPT::beginMPPT(19200);
 
     Watchdog.enable(RESET_MODE, WDT_PRESCALER_512); // Режим сторжевого сброса , таймаут ~4с
 

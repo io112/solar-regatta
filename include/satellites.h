@@ -13,10 +13,6 @@ namespace Satellites {
 #define MAX_SIZE_MASS 16  // задаём размер массива для времени, даты, широты и долготы
 
 
-    GPS gps(GPS_SERIAL);  // создаём объект класса GPS и передаём в него объект Serial1
-
-
-
     void sendSatellites();
 
     void sendpointA();

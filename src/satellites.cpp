@@ -8,6 +8,8 @@ namespace Satellites {
     char longitudeBase60[MAX_SIZE_MASS];  // массив для хранения долготы в градусах, минутах и секундах
 
     float pointA_lat, pointA_long, pointB_lat, pointB_long; // for gps start
+    GPS gps(GPS_SERIAL);  // создаём объект класса GPS и передаём в него объект Serial1
+
 
 
     float latlng2distance(float lat1, float long1, float lat2, float long2) {

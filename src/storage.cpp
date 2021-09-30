@@ -1,23 +1,28 @@
 #include "storage.h"
 
 namespace Storage {
+    unsigned long sd_read_timestamp;
+    int delay_sd_write = 1000; // delay between records in microseconds
+
+
     void write_data(String data, String file_name) {
-    File myFile = SD.open(file_name.c_str(), FILE_WRITE);
-    //Serial.println("sd file is opened");
-    if (gps.available()) {
-        gps.readParsing();
-        //Serial.println("gps is available");
-        switch (gps.getState()) {
-            case GPS_OK:
-                gps.getTime(strTime, MAX_SIZE_MASS);
-                data = data + " " + strTime;
+        File myFile = SD.open(file_name.c_str(), FILE_WRITE);
+        //Serial.println("sd file is opened");
+//    if (gps.available()) {
+//        gps.readParsing();
+//        //Serial.println("gps is available");
+//        switch (gps.getState()) {
+//            case GPS_OK:
+//                gps.getTime(strTime, MAX_SIZE_MASS);
+//                data = data + " " + strTime;
+//
+//        }
+//    }
+// TODO: time?
+        //Serial.println("data is recorded");
+        myFile.println(data);
 
-        }
-    }
-    //Serial.println("data is recorded");
-    myFile.println(String(data));
-
-    myFile.close();
+        myFile.close();
     }
 
 

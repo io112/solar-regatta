@@ -1,6 +1,12 @@
 #include "mppt.h"
 
 namespace MPPT {
+    SoftwareSerial mppt(11, 12); // RX, TX
+
+    void beginMPPT(int baudRate) {
+        mppt.begin(19200);
+    }
+
     void read() {
         char symbol;
         char s[20];

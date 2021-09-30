@@ -10,10 +10,6 @@
 namespace Controller {
 #define controller_temp_sensor A1
 
-    int r_controller_temp = 10000;  // resistor for controller temp sensor, om
-    double temp_vin = 4.7;   // voltage input used in voltage dividers for temp sensors
-
-
     double getTemp();
 }
 

@@ -11,7 +11,8 @@
 #include "dispaly.h"
 
 namespace MPPT {
-    SoftwareSerial mppt(11, 12); // RX, TX
+
+    void beginMPPT(int baudRate);
 
     void read();
 
