@@ -29,7 +29,7 @@ namespace Display {
 
     void motorRevols(int revols);
 
-    void distance(int dist);
+    void distance(long dist);
 
     void satellitesNum(int number);
 

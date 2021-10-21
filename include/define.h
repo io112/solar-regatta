@@ -28,5 +28,8 @@
 #define STORAGE_MODULE      "STORAGE"
 #define MAIN_MODULE         "MAIN"
 
+// COMMANDS
+#define COMMAND_REMEMBER    "set_point_A"
+
 #define LOG_LEVEL 1
 #endif //SOLAR_DEFINE_H

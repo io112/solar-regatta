@@ -73,7 +73,7 @@ namespace Display {
     }
 
 
-    void distance(int dist) {  // установка точки б
+    void distance(long dist) {  // установка точки б
         send("n5", "val", String(dist));
     }
 
@@ -105,7 +105,6 @@ namespace Display {
             return "";
         String data = "";
         while (DisplaySerial.available()) {
-            //Serial.println("events");
             data += char(DisplaySerial.read());
             //Serial.println(dataDisplay.length());
         }

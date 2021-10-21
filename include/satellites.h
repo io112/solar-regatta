@@ -6,6 +6,7 @@
 #include <MicroNMEA.h>
 #include "dispaly.h"
 #include "log.h"
+#include "math.h"
 
 #ifndef SOLAR_SATELLITES_H
 #define SOLAR_SATELLITES_H
@@ -14,15 +15,18 @@ namespace Satellites {
 #define MAX_SIZE_MASS 16  // задаём размер массива для времени, даты, широты и долготы
 
     class Point {
+    public:
         String time;
-        float lat;
-        float lng;
-        float speed;
+        double lat;
+        double lng;
+        double speed;
     };
 
     void init(unsigned long baudRate);
 
     void read();
+
+    void rememberPoint();
 }
 
 #endif //SOLAR_SATELLITES_H

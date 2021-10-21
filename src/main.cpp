@@ -57,6 +57,10 @@ void loop() {
 
 //    Motor::getRevolutions();
     Satellites::read();
+    String command = Display::read();
+    if (command == COMMAND_REMEMBER) {
+        Satellites::rememberPoint();
+    }
     //Serial.println("motor revols done");
 
     //sd_write_temp(motor_temp, controller_temp);

@@ -6,6 +6,10 @@ namespace Satellites {
     char strDate[MAX_SIZE_MASS];  // массив для хранения текущей даты
     char latitudeBase60[MAX_SIZE_MASS];  // массив для хранения широты в градусах, минутах и секундах
     char longitudeBase60[MAX_SIZE_MASS];  // массив для хранения долготы в градусах, минутах и секундах
+    unsigned long R = 6371e3;       //радиус Земли
+    Point PointA;
+    Point PointB;
+    Point CurrentPoint;
 
     float pointA_lat, pointA_long, pointB_lat, pointB_long; // for gps start
     char buffer[100];
@@ -14,6 +18,10 @@ namespace Satellites {
 
     void printUnknownSentence(MicroNMEA &nmea) {
         Log::warn(String("unknownSentence: ") + nmea.getSentence(), SATELLITES_MODULE);
+    }
+
+    double toRadians(double val) {
+        return (M_PI / 180) * val;
     }
 
 
@@ -28,38 +36,42 @@ namespace Satellites {
         }
     }
 
-    float latlng2distance(float lat1, float long1, float lat2, float long2) {
-        //радиус Земли
-        unsigned long R = 6372795;
-        //перевод коордитат в радианы
-        lat1 *= 3.14 / 180;
-        lat2 *= 3.14 / 180;
-        long1 *= 3.14 / 180;
-        long2 *= 3.14 / 180;
-        //вычисление косинусов и синусов широт и разницы долгот
-        float cl1 = cos(lat1);
-        float cl2 = cos(lat2);
-        float sl1 = sin(lat1);
-        float sl2 = sin(lat2);
-        float delta = long2 - long1;
-        float cdelta = cos(delta);
-        float sdelta = sin(delta);
-        //вычисления длины большого круга
-        float y = sqrt(pow(cl2 * sdelta, 2) + pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
-        float x = sl1 * sl2 + cl1 * cl2 * cdelta;
-        float ad = atan2(y, x);
-        float dist = ad * R; //расстояние между двумя координатами в метрах
-        return dist;
+    double distance(Point p1, Point p2) {
+        double phi1 = toRadians(p1.lat);
+        double phi2 = toRadians(p2.lat);
+        double dphi = toRadians(p2.lat - p1.lat);
+        double dalfa = toRadians(p2.lng - p1.lng);
+
+
+        double a = sin(dphi / 2) * sin(dphi / 2) +
+                   cos(phi1) * cos(phi2) *
+                   sin(dalfa / 2) * sin(dalfa / 2);
+
+        double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+        return R * c;
     }
 
-    void senddistance(float lat1, float long1, float lat2, float long2) {  // установка точки б
-        float dist = latlng2distance(lat1, long1, lat2, long2);
-        int distInt = floor(dist);
+
+    void sendpointA() {  // установка точки а
+        Display::pointA(PointA.lat, PointA.lng);
+
+    }
+
+    void sendpointB() {  // установка точки б
+        Display::pointB(PointB.lat, PointB.lng);
+    }
+
+    void sendDistance(Point p1, Point p2) {  // установка точки б
+        double dist = distance(p1, p2);
+        long distInt = floor(dist);
         Display::distance(distInt);
     }
 
     void printSatellites() {  // выводим количество видимых спутников
         Display::satellitesNum(nmea.getNumSatellites());
+        sendpointA();
+        sendpointB();
         Log::info(String(nmea.getNumSatellites()), SATELLITES_MODULE);
     }
 
@@ -79,48 +91,28 @@ namespace Satellites {
                      SATELLITES_MODULE);
     }
 
-
-    void sendpointA() {  // установка точки а
-        //pointA_lat = gps.getLatitudeBase10();
-        pointA_lat = 321;
-        //pointA_long = gps.getLongitudeBase10();
-        pointA_long = 654;
-
-        Display::pointA(pointA_lat, pointA_long);
-
+    void rememberPoint() {
+        PointA = CurrentPoint;
     }
 
-    void sendpointB() {  // установка точки б
-        //pointB_lat = gps.getLatitudeBase10();
-        pointB_lat = 123;
-
-
-        //pointB_long = gps.getLongitudeBase10();
-        pointB_long = 456;
-
-        Display::pointB(pointB_lat, pointB_long);
-    }
 
 
 //    void check_if_starting_line(float lat_now = gps.getLatitudeBase10(), float long_now = gps.getLongitudeBase10()) {
 //
 //    }
 
+
     void read() {
         if (SATELLITES_ENABLED) {
             printTime();
             if (GPS_SERIAL.available()) {  // считываем данные и парсим
-//                MainSerial.write(GPS_SERIAL.read());
                 char c = GPS_SERIAL.read();
-//                MainSerial.print(c);
                 if (nmea.process(c)) {
-//                    if (nmea.getNavSystem())
-//                        Log::info(String(nmea.getNavSystem()), SATELLITES_MODULE);
-//                    else
-//                        Log::info("none", SATELLITES_MODULE);
                     printSatellites();
                     logCoords();
                     printTime();
+                    CurrentPoint.lat = nmea.getLatitude() / 1000000;
+                    CurrentPoint.lng = nmea.getLongitude() / 1000000;
                 }
 //                Log::debug(GPS_SERIAL.readString(), SATELLITES_MODULE);
 //                gps.readParsing();       // проверяем состояние GPS-модуля
