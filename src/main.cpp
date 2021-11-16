@@ -6,6 +6,7 @@
 #include "mppt.h"
 #include "motor.h"
 #include "controller.h"
+#include "external.h"
 #include "define.h"
 
 /* SD CARD ADAPTER
@@ -38,6 +39,9 @@ void processCommand(String command) {
     }
 }
 
+void processExternalData(String data) {
+}
+
 
 void loop() {
 
@@ -45,8 +49,11 @@ void loop() {
 //    Motor::getRevolutions();
     Satellites::read();
     String command = Display::read();
+    String externalData = External::read();
     if (command != "")
         processCommand(command);
+    if (externalData != "")
+        processExternalData(externalData);
 
     //Serial.println("motor revols done");
 

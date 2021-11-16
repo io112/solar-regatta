@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "define.h"
+#include "external.h"
 #include "log.h"
 
 namespace Display {

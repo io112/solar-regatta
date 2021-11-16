@@ -22,6 +22,7 @@ namespace Display {
         sprintf(buffer, "%s.%s=\"%s\"", name.c_str(), type.c_str(), value.c_str());
         DisplaySerial.print(buffer);
         Log::monitor(buffer, DISPLAY_MODULE);
+        // TODO: send to external
         commandEnd();
     }
 
