@@ -103,7 +103,7 @@ namespace Display {
         if (!DISPLAY_ENABLED)
             return "";
         String data = "";
-        while (DisplaySerial.available()) {
+        while (DisplaySerial.available()) { // TODO: one bit one cicle
             data += char(DisplaySerial.read());
             //Serial.println(dataDisplay.length());
         }

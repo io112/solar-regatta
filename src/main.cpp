@@ -32,6 +32,12 @@ void setup() {
     Log::info("-------------setup is done-----------", MAIN_MODULE);
 }
 
+void processCommand(String command) {
+    if (command == COMMAND_REMEMBER) {
+        Satellites::setPoint();
+    }
+}
+
 
 void loop() {
 
@@ -39,9 +45,9 @@ void loop() {
 //    Motor::getRevolutions();
     Satellites::read();
     String command = Display::read();
-    if (command == COMMAND_REMEMBER) {
-        Satellites::setPoint();
-    }
+    if (command != "")
+        processCommand(command);
+
     //Serial.println("motor revols done");
 
     //sd_write_temp(motor_temp, controller_temp);
@@ -51,3 +57,4 @@ void loop() {
 
     Watchdog.reset(); // Переодический сброс watchdog, означающий, что устройство не зависло
 }
+
