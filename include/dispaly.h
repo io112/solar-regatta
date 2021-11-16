@@ -35,7 +35,7 @@ namespace Display {
 
     void pointA(float lat, float lng);
 
-    void pointB(float lat, float lng);
+    void laps(float laps);
 
     void time(String time);
 

@@ -2,16 +2,27 @@
 
 
 namespace Satellites {
-    char strTime[MAX_SIZE_MASS];  // массив для хранения текущего времени
-    char strDate[MAX_SIZE_MASS];  // массив для хранения текущей даты
-    char latitudeBase60[MAX_SIZE_MASS];  // массив для хранения широты в градусах, минутах и секундах
-    char longitudeBase60[MAX_SIZE_MASS];  // массив для хранения долготы в градусах, минутах и секундах
-    unsigned long R = 6371e3;       //радиус Земли
+    //радиус Земли
+    unsigned long R = 6371e3;
+
+    // допуск в метрах к расстоянию между
+    // текущей точкой и точкой отсчета
+    unsigned long tolerance = 5;
+
+    // время в миллисекундах сколько нужно находиться в
+    // пределах допуска для изменения состояния
+    unsigned long toleranceTime = 5;
+
+    // Текущее состояние находимся ли мы в радиусе допуска
+    bool state = false;
+    bool pendingState = false;
+    unsigned long stateChange = 0;
+
     Point PointA;
-    Point PointB;
     Point CurrentPoint;
 
-    float pointA_lat, pointA_long, pointB_lat, pointB_long; // for gps start
+    unsigned long laps = 0;
+
     char buffer[100];
     MicroNMEA nmea(buffer, sizeof(buffer));
 
@@ -25,17 +36,7 @@ namespace Satellites {
     }
 
 
-    void init(unsigned long baudRate) {
-        if (SATELLITES_ENABLED) {
-            GPS_SERIAL.begin(baudRate);
-            nmea.setUnknownSentenceHandler(printUnknownSentence);
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB");
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB,RMC,1,GGA,1");
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PNVGNME,2,9,1");
-            Log::debug("init satellite done", SATELLITES_MODULE);
-        }
-    }
-
+    // distance возвращает расстояние между точками в метрах
     double distance(Point p1, Point p2) {
         double phi1 = toRadians(p1.lat);
         double phi2 = toRadians(p2.lat);
@@ -53,92 +54,109 @@ namespace Satellites {
     }
 
 
-    void sendpointA() {  // установка точки а
+    void init(unsigned long baudRate) {
+        if (SATELLITES_ENABLED) {
+            GPS_SERIAL.begin(baudRate);
+            nmea.setUnknownSentenceHandler(printUnknownSentence);
+            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB");
+            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB,RMC,1,GGA,1");
+            MicroNMEA::sendSentence(GPS_SERIAL, "$PNVGNME,2,9,1");
+            Log::debug("init satellite done", SATELLITES_MODULE);
+        }
+    }
+
+
+    void logCoords() {
+        Log::monitor("coords: lat: " + String(CurrentPoint.lat) + ", lng: " + String(CurrentPoint.lng),
+                     SATELLITES_MODULE);
+    }
+
+    // выводим установленную точку
+    void printPointA() {
         Display::pointA(PointA.lat, PointA.lng);
 
     }
 
-    void sendpointB() {  // установка точки б
-        Display::pointB(PointB.lat, PointB.lng);
-    }
-
-    void sendDistance(Point p1, Point p2) {  // установка точки б
-        double dist = distance(p1, p2);
-        long distInt = floor(dist);
-        Display::distance(distInt);
-    }
-
-    void printSatellites() {  // выводим количество видимых спутников
+    // выводим количество видимых спутников
+    void printSatellites() {
         Display::satellitesNum(nmea.getNumSatellites());
-        sendpointA();
-        sendpointB();
         Log::info(String(nmea.getNumSatellites()), SATELLITES_MODULE);
+        logCoords();
     }
 
-    void printTime() {  // выводим количество видимых спутников
+    // выводим текущее время
+    void printTime() {
         char *c = new char[16];
         sprintf(c, "%d:%d:%d", nmea.getHour(), nmea.getMinute(), nmea.getSecond());
-//        Serial.print(time_now);
         Display::time(c);
     }
 
-    void printSpeed() {  // выводим текущую скорость
+    // выводим текущую скорость
+    void printSpeed() {
         Display::speed(float(nmea.getSpeed()));
     }
 
-    void logCoords() {
-        Log::monitor("coords: lat: " + String(nmea.getLatitude()) + ", lng: " + String(nmea.getLongitude()),
-                     SATELLITES_MODULE);
+    // выводим расстояние до точки отсчета
+    void printDistance() {
+        Display::distance(float(distance(PointA, CurrentPoint)));
     }
 
-    void rememberPoint() {
+    // выводим количество кругов
+    void printLaps() {
+        Display::laps(laps);
+    }
+
+
+    void setPoint() {
         PointA = CurrentPoint;
     }
 
+    void readCurrentPoint() {
+        CurrentPoint.lat = nmea.getLatitude() / 1000000;
+        CurrentPoint.lng = nmea.getLongitude() / 1000000;
+    }
 
-
-//    void check_if_starting_line(float lat_now = gps.getLatitudeBase10(), float long_now = gps.getLongitudeBase10()) {
-//
-//    }
+    void checkLap() {
+        double dist = distance(PointA, CurrentPoint);
+        bool oldPendingState = pendingState;
+        bool oldState = state;
+        if (dist < tolerance) {
+            pendingState = true;
+        } else {
+            pendingState = false;
+        }
+        if (pendingState != oldPendingState) {
+            stateChange = millis();
+            return;
+        }
+        if (pendingState != state) {
+            if (millis() - stateChange > toleranceTime) {
+                state = pendingState;
+            }
+        }
+        if (!oldState && state) {
+            laps++;
+        }
+    }
 
 
     void read() {
-        if (SATELLITES_ENABLED) {
-            printTime();
-            if (GPS_SERIAL.available()) {  // считываем данные и парсим
-                char c = GPS_SERIAL.read();
-                if (nmea.process(c)) {
-                    printSatellites();
-                    logCoords();
-                    printTime();
-                    CurrentPoint.lat = nmea.getLatitude() / 1000000;
-                    CurrentPoint.lng = nmea.getLongitude() / 1000000;
-                }
-//                Log::debug(GPS_SERIAL.readString(), SATELLITES_MODULE);
-//                gps.readParsing();       // проверяем состояние GPS-модуля
-//                Log::info("GPS state: " + String(gps.getState()), SATELLITES_MODULE);
-//                switch (gps.getState()) {
-//                    case GPS_OK:           // всё OK
-//                        Log::info("GPS OK", SATELLITES_MODULE);
-//                        gps.getTime(strTime, MAX_SIZE_MASS);
-//                        printSatellites();
-//                        printSpeed();
-//                        printTime();
-//                        logCoords();
-//                        break;
-//                    case GPS_ERROR_DATA:   // ошибка данных
-//                        Log::error("GPS error data", SATELLITES_MODULE);
-//                        break;
-//
-//                    case GPS_ERROR_SAT:   // нет соединение со спутниками
-//                        Log::warn("GPS no connect to satellites!", SATELLITES_MODULE);
-//                        break;
-//                }
-//            } else {
-//                Log::error("GPS not available", SATELLITES_MODULE);
+        if (!SATELLITES_ENABLED) {
+            return;
+        }
+        if (GPS_SERIAL.available()) {  // считываем данные и парсим
+            char c = GPS_SERIAL.read();
+            if (nmea.process(c)) {
+                readCurrentPoint();
+                checkLap();
+                printLaps();
+                printPointA();
+                printSatellites();
+                printTime();
+                printSpeed();
+                printDistance();
             }
         }
-
     }
 
 

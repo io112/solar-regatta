@@ -86,9 +86,8 @@ namespace Display {
         send("t31", "txt", String(lng));
     }
 
-    void pointB(float lat, float lng) {
-        send("t32", "txt", String(lat));
-        send("t33", "txt", String(lng));
+    void laps(float laps) {
+        // TODO: print laps number
     }
 
     void speed(float value) {
@@ -110,18 +109,8 @@ namespace Display {
         }
         if (data) {
             return data;
-//            //Serial.print(dataDisplay);
-//            if (dataDisplay == "clearPoints") {
-//                //Serial.println("clearPoints");
-//                resetPoints();
-//            } else if (dataDisplay == "setA") {
-//                //Serial.println("Set A");
-//                Satellites::sendpointA();
-//            } else if (dataDisplay == "setB") {
-//                //Serial.println("Set B");
-//                Satellites::sendpointB();
-//            }
         }
+        return String("");
     }
 
 }

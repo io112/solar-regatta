@@ -26,7 +26,7 @@ namespace Satellites {
 
     void read();
 
-    void rememberPoint();
+    void setPoint();
 }
 
 #endif //SOLAR_SATELLITES_H
