@@ -6,35 +6,36 @@
 #define BOAT_CONTROLLER_JSON_OUTPUT_H
 
 
-class json_output {
+class Json_Output {
 private:
     //created_at = "2022-05-03T18:58:29.402Z";
-    long int controller_watts;
-    int time_to_go;
-    long int controller_volts;
-    long int MPPT_volts;
-    long int MPPT_watts;
-    double motor_temp;
-    int motor_revols;
-    double speed;
-    double position_lat;
-    double position_lng;
+    long int Controller_Watts;
+    int Time_To_Go;
+    long int Controller_Volts;
+    long int MPPT_Volts;
+    long int MPPT_Watts;
+    double Motor_Temp;
+    int Motor_Revols;
+    double Speed;
+    double Position_Lat;
+    double Position_Lng;
 
 public:
-    ~json_output();
-    json_output();
-    void cwatts_input();
-    void ttg_input();
-    void cvolts_input();
-    void MPPTvolts_input();
-    void MPPTwatts_input();
-    void motortemp_input();
-    void motorrev_input();
-    void speed_input();
-    void positionlat_input();
-    void positionlang_input();
-    void output();
+    Json_Output();
+    Json_Output(Json_Output Temp);
+    void Controller_Watts(long int Watts);
+    void Time_To_Go(int Time_to_go);
+    void Controller_Volts(long int Volts);
+    void MPPT_Volts(long int Volts);
+    void MPPT_Watts(long int Watts);
+    void Motor_Temp(double Temperature);
+    void Motor_Revols(int Revols)();
+    void Speed(double Speed);
+    void Position_Lat(double Position_lat);
+    void Position_Lng(double Position_lang);
+    string show();
 };
 
 
 #endif //BOAT_CONTROLLER_JSON_OUTPUT_H
+x
