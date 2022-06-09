@@ -10,7 +10,7 @@ namespace Telemetry {
 
     class JsonOutput {
     private:
-        //created_at = "2022-05-03T18:58:29.402Z";
+        string CreatedAt;
         long int ControllerWatts;
         int TimeToGo;
         long int ControllerVolts;
@@ -24,6 +24,8 @@ namespace Telemetry {
 
     public:
         JsonOutput();
+
+        void CreatedAt(string CreatedAt);
 
         void ControllerWatts(long int Watts);
 
@@ -47,6 +49,8 @@ namespace Telemetry {
 
         string Show();
     };
+
+    void CreatedAt(string CreatedAt);
 
     void ControllerWatts(long int Watts);
 

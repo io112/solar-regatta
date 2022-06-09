@@ -7,11 +7,11 @@
 namespace Telemetry {
 
 
-    class json_output {
+    class JsonOutput {
 
 
         JsonOutput() {
-            //CreatetAt =
+            CreatetAt = 0;
             ControllerWatts = 0;
             TimeToGo = 0;
             ControllerVolts = 0;
@@ -24,6 +24,9 @@ namespace Telemetry {
             PositionLng = 0;
         }
 
+        void CreatedAt(string CreatedAt){
+            this->CreatedAt = CreatedAt;
+        }
 
         void ControllerWatts(long int Watts) {
             this->ControllerWatts = Watts;
@@ -75,11 +78,10 @@ namespace Telemetry {
         }
 
         string Show() {
-            string Out = "controller_watts=" + controller_watts + "&time_to_go=" + time_to_go + "&controller_volts=" +
-                         controller_volts +
-                         "&MPPT_volts=" + MPPT_volts + "&MPPT_watts=" + MPPT_watts + "&motor_temp=" + motor_temp +
-                         "&motor_revols=" + motor_revols +
-                         "&speed=" + speed + "&position_lat=" + position_lat + "&position_lng=" + position_lng;
+            string Out ='{"CreatedAt="' + CreatedAt + '"ControllerWatts="' + ControllerWatts + '",TimeToGo="' + TimeToGo + '",ControllerVolts="'
+                    + ControllerVolts + '",MPPTVolts="' + MPPTVolts + '",MPPTWatts="' + MPPTWatts + '",MotorTemp="'
+                    + MotorTemp + '",MotorRevols="' + MotorRevols + '",Speed="' + Speed + '",PositionLat="'
+                    + PositionLat + '",PositionLng="' + PositionLng + '}';
             return Out;
         }
 
@@ -87,6 +89,9 @@ namespace Telemetry {
 
     JsonOutput Data();
 
+    void CreatedAt(string CreatedAt){
+        Data.CreatedAt(CreatedAt);
+    }
 
     void ControllerWatts(long int Watts){
         Data.ControllerWatts(Watts);
@@ -139,7 +144,7 @@ namespace Telemetry {
 
 
     string Show(){
-        return Data.show();
+        return Data.Show();
     }
 
 
