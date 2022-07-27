@@ -36,7 +36,7 @@ namespace Motor {
             start_time_revolutions = millis();
             rotations = 0;
             revol_count_working = 0;
-            Display::motorRevols(rotations_per_min);
+            Telemetry::MotorRevols(rotations_per_min);
             //Serial.println(rotations_per_min);
 //        sd_write_data(String(rotations_per_min), "revols.txt");
             //TODO: storage write
@@ -71,6 +71,7 @@ namespace Motor {
         om /= 100;
         //Serial.println(om);
         double temp = 0.0138 * om * om * om - 0.9088 * om * om + 30.77 * om - 130.73;
+        Telemetry::MotorTemp(temp);
         return temp;
     }
 

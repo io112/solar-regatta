@@ -21,6 +21,7 @@ namespace Telemetry {
         double Speed;
         double PositionLat;
         double PositionLng;
+        int SatellitesNum;
 
     public:
         JsonOutput();
@@ -47,6 +48,8 @@ namespace Telemetry {
 
         void PositionLng(double PositionLng);
 
+        void SatellitesNum(int SatellitesNum);
+
         string Show();
     };
 
@@ -71,6 +74,8 @@ namespace Telemetry {
     void PositionLat(double PositionLat);
 
     void PositionLng(double PositionLng);
+
+    void SatellitesNum(int SatellitesNum);
 
     String Show
 

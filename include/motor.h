@@ -6,7 +6,7 @@
 #define SOLAR_MOTOR_H
 
 #include <Arduino.h>
-#include "dispaly.h"
+#include "telemetry.h"
 
 namespace Motor {
 #define revolutionMeter A2

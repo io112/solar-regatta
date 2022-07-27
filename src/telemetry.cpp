@@ -11,7 +11,7 @@ namespace Telemetry {
 
 
         JsonOutput() {
-            CreatetAt = 0;
+            CreatetAt = "0";
             ControllerWatts = 0;
             TimeToGo = 0;
             ControllerVolts = 0;
@@ -22,6 +22,7 @@ namespace Telemetry {
             Speed = 0;
             PositionLat = 0;
             PositionLng = 0;
+            SatellitesNum = 0;
         }
 
         void CreatedAt(string CreatedAt){
@@ -77,11 +78,15 @@ namespace Telemetry {
             this->PositionLng = PositionLng;
         }
 
+        void SatellitesNum(int SatellitesNum){
+            this->SatellitesNum = SatellitesNum;
+        }
+
         string Show() {
-            string Out ='{"CreatedAt="' + CreatedAt + '",ControllerWatts="' + ControllerWatts + '",TimeToGo="' + TimeToGo + '",ControllerVolts="'
-                    + ControllerVolts + '",MPPTVolts="' + MPPTVolts + '",MPPTWatts="' + MPPTWatts + '",MotorTemp="'
-                    + MotorTemp + '",MotorRevols="' + MotorRevols + '",Speed="' + Speed + '",PositionLat="'
-                    + PositionLat + '",PositionLng="' + PositionLng + '}';
+            string Out ='{"CreatedAt:"' + CreatedAt + '",ControllerWatts:"' + ControllerWatts + '",TimeToGo:"' + TimeToGo + '",ControllerVolts:"'
+                    + ControllerVolts + '",MPPTVolts:"' + MPPTVolts + '",MPPTWatts:"' + MPPTWatts + '",MotorTemp:"'
+                    + MotorTemp + '",MotorRevols:"' + MotorRevols + '",Speed:"' + Speed + '",PositionLat:"'
+                    + PositionLat + '",PositionLng:"' + PositionLng + '",SatellitesNum:"'+ SatellitesNum + '}';
             return Out;
         }
 
@@ -142,6 +147,9 @@ namespace Telemetry {
         Data.PositionLng(PositionLng);
     }
 
+    void SatellitesNum(int SatellitesNum){
+        Data.SatellitesNum(SatellitesNum);
+    }
 
     string Show(){
         return Data.Show();

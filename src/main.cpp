@@ -8,6 +8,7 @@
 #include "controller.h"
 #include "external.h"
 #include "define.h"
+#include "telemetry.h"
 
 /* SD CARD ADAPTER
     CS - 10 (changable)
