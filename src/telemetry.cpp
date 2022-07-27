@@ -83,10 +83,10 @@ namespace Telemetry {
         }
 
         string Show() {
-            string Out ='{"CreatedAt:"' + CreatedAt + '",ControllerWatts:"' + ControllerWatts + '",TimeToGo:"' + TimeToGo + '",ControllerVolts:"'
-                    + ControllerVolts + '",MPPTVolts:"' + MPPTVolts + '",MPPTWatts:"' + MPPTWatts + '",MotorTemp:"'
-                    + MotorTemp + '",MotorRevols:"' + MotorRevols + '",Speed:"' + Speed + '",PositionLat:"'
-                    + PositionLat + '",PositionLng:"' + PositionLng + '",SatellitesNum:"'+ SatellitesNum + '}';
+            string Out ='{"CreatedAt:""' + CreatedAt + '","ControllerWatts:"' + ControllerWatts + ',"TimeToGo:"' + TimeToGo + ',"ControllerVolts:"'
+                    + ControllerVolts + ',"MPPTVolts:"' + MPPTVolts + ',"MPPTWatts:"' + MPPTWatts + ',"MotorTemp:"'
+                    + MotorTemp + ',"MotorRevols:"' + MotorRevols + ',"Speed:"' + Speed + ',"PositionLat:"'
+                    + PositionLat + ',"PositionLng:"' + PositionLng + ',"SatellitesNum:"'+ SatellitesNum + '}';
             return Out;
         }
 
