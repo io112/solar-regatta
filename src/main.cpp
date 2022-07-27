@@ -56,6 +56,8 @@ void loop() {
     if (externalData != "")
         processExternalData(externalData);
 
+    Telemetry::Show();
+
     //Serial.println("motor revols done");
 
     //sd_write_temp(motor_temp, controller_temp);

@@ -5,6 +5,9 @@
 #ifndef BOAT_CONTROLLER_TELEMETRY_H
 #define BOAT_CONTROLLER_TELEMETRY_H
 #include "string.h"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 namespace Telemetry {
 
@@ -26,29 +29,29 @@ namespace Telemetry {
     public:
         JsonOutput();
 
-        void CreatedAt(string CreatedAt);
+        void SetCreatedAt(string CreatedAt);
 
-        void ControllerWatts(long int Watts);
+        void SetControllerWatts(long int Watts);
 
-        void TimeToGo(int TimeToGo);
+        void SetTimeToGo(int TimeToGo);
 
-        void ControllerVolts(long int Volts);
+        void SetControllerVolts(long int Volts);
 
-        void MPPTVolts(long int Volts);
+        void SetMPPTVolts(long int Volts);
 
-        void MPPTWatts(long int Watts);
+        void SetMPPTWatts(long int Watts);
 
-        void MotorTemp(double Temperature);
+        void SetMotorTemp(double Temperature);
 
-        void MotorRevols(int Revols);
+        void SetMotorRevols(int Revols);
 
-        void Speed(double Speed);
+        void SetSpeed(double Speed);
 
-        void PositionLat(double PositionLat);
+        void SetPositionLat(double PositionLat);
 
-        void PositionLng(double PositionLng);
+        void SetPositionLng(double PositionLng);
 
-        void SatellitesNum(int SatellitesNum);
+        void SetSatellitesNum(int SatellitesNum);
 
         string Show();
     };

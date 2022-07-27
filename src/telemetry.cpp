@@ -25,130 +25,140 @@ namespace Telemetry {
             SatellitesNum = 0;
         }
 
-        void CreatedAt(string CreatedAt){
+        void SetCreatedAt(string CreatedAt){
             this->CreatedAt = CreatedAt;
         }
 
-        void ControllerWatts(long int Watts) {
+        void SetControllerWatts(long int Watts) {
             this->ControllerWatts = Watts;
         }
 
 
-        void TimeToGo(int TimeToGo) {
+        void SetTimeToGo(int TimeToGo) {
             this->TimeToGo = TimeToGo;
         }
 
 
-        void ControllerVolts(long int Volts) {
+        void SetControllerVolts(long int Volts) {
             this->ControllerVolts = Volts;
         }
 
 
-        void MPPTVolts(long int Volts) {
+        void SetMPPTVolts(long int Volts) {
             this->MPPTVolts = Volts;
         }
 
 
-        void MPPTWatts(long int Watts) {
+        void SetMPPTWatts(long int Watts) {
             this->MPPTWatts = Watts;
         }
 
 
-        void MotorTemp(double Temperature) {
+        void SetMotorTemp(double Temperature) {
             this->MotorTemp = Temperature;
         }
 
 
-        void MotorRevols(int Revols) {
+        void SetMotorRevols(int Revols) {
             this->MotorRevols = Revols;
         }
 
 
-        void Speed(double Speed) {
+        void SetSpeed(double Speed) {
             this->Speed = Speed;
         }
 
 
-        void PositionLat(double PositionLat) {
+        void SetPositionLat(double PositionLat) {
             this->PositionLat = PositionLat;
         }
 
 
-        void PositionLng(double PositionLng) {
+        void SetPositionLng(double PositionLng) {
             this->PositionLng = PositionLng;
         }
 
-        void SatellitesNum(int SatellitesNum){
+        void SetSatellitesNum(int SatellitesNum){
             this->SatellitesNum = SatellitesNum;
         }
 
         string Show() {
-            string Out ='{"CreatedAt:""' + CreatedAt + '","ControllerWatts:"' + ControllerWatts + ',"TimeToGo:"' + TimeToGo + ',"ControllerVolts:"'
-                    + ControllerVolts + ',"MPPTVolts:"' + MPPTVolts + ',"MPPTWatts:"' + MPPTWatts + ',"MotorTemp:"'
-                    + MotorTemp + ',"MotorRevols:"' + MotorRevols + ',"Speed:"' + Speed + ',"PositionLat:"'
-                    + PositionLat + ',"PositionLng:"' + PositionLng + ',"SatellitesNum:"'+ SatellitesNum + '}';
+           json Out ={
+           {"CreatedAt:",CreatedAt},
+           {"ControllerWatts:", ControllerWatts},
+           {"TimeToGo:", TimeToGo},
+           {"ControllerVolts:", ControllerVolts},
+           {"MPPTVolts:", MPPTVolts},
+           {"MPPTWatts:", MPPTWatts},
+           {"MotorTemp:", MotorTemp},
+           {"MotorRevols:", MotorRevols},
+           {"Speed:", Speed},
+           {"PositionLat:", PositionLat},
+           {"PositionLng:", PositionLng},
+           {"SatellitesNum:", SatellitesNum}
+           };
             return Out;
         }
 
-    }
+    };
 
     JsonOutput Data();
 
     void CreatedAt(string CreatedAt){
-        Data.CreatedAt(CreatedAt);
+        Data.SetCreatedAt(CreatedAt);
     }
 
     void ControllerWatts(long int Watts){
-        Data.ControllerWatts(Watts);
+        Data.SetControllerWatts(Watts);
     }
 
 
     void TimeToGo(int TimeToGo){
-        Data.TimeToGo(TimeToGo);
+        Data.SetTimeToGo(TimeToGo);
     }
 
 
     void ControllerVolts(long int Volts){
-        Data.ControllerVolts(Volts);
+        Data.SetControllerVolts(Volts);
     }
 
 
     void MPPTVolts(long int Volts){
-        Data.MPPTVolts(Volts);
+        Data.SetMPPTVolts(Volts);
     }
 
 
     void MPPTWatts(long int Watts){
-        Data.MPPTWatts(Watts);
+        Data.SetMPPTWatts(Watts);
     }
 
 
     void MotorTemp(double Temperature){
-        Data.MotorTemp(Temperature);
+        Data.SetMotorTemp(Temperature);
     }
 
 
     void MotorRevols(int Revols){
-        Data.MotorRevols(Revols);
+        Data.SetMotorRevols(Revols);
     }
 
 
     void Speed(double Speed){
-        Data.Speed(Speed);
+        Data.SetSpeed(Speed);
     }
 
 
     void PositionLat(double PositionLat){
-        Data.PositionLat(PositionLat);
+        Data.SetPositionLat(PositionLat);
     }
 
 
     void PositionLng(double PositionLng){
-        Data.PositionLng(PositionLng);
+        Data.SetPositionLng(PositionLng);
     }
 
     void SatellitesNum(int SatellitesNum){
-        Data.SatellitesNum(SatellitesNum);
+        Data.SetSatellitesNum(SatellitesNum);
     }
 
     string Show(){
