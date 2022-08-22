@@ -37,14 +37,14 @@ namespace MPPT {
 //                if (is_it_sd_writing_time()) sd_write_data(MPPT_cmd_value, "volts_m.txt");
                     // TODO: storage write
                     MPPT_cmd_value_int = MPPT_cmd_value.toInt() / 1000; //mV -> V
-                    Display::MPPTVolts(MPPT_cmd_value_int);
+                    Telemetry::MPPTVolts(MPPT_cmd_value_int);
                 }
                 if (MPPT_cmd_name == "PPV") {      // Panel power
 //                if (is_it_sd_writing_time()) sd_write_data(MPPT_cmd_value, "w_panel.txt");
                     // TODO: storage write
 
                     MPPT_cmd_value_int = MPPT_cmd_value.toInt();
-                    Display::MPPTWatt(MPPT_cmd_value_int);
+                    Telemetry::MPPTWatts(MPPT_cmd_value_int);
                 }
                 i = 0;
                 MPPT_cmd_value = "";

@@ -8,6 +8,7 @@
 #include "controller.h"
 #include "external.h"
 #include "define.h"
+#include "telemetry.h"
 
 /* SD CARD ADAPTER
     CS - 10 (changable)
@@ -47,7 +48,7 @@ void loop() {
 
 
 //    Motor::getRevolutions();
-   // Satellites::read();
+    Satellites::read();
     String command = Display::read();
     String externalData = External::read();
     if (command != "")
@@ -55,17 +56,12 @@ void loop() {
     if (externalData != "")
         processExternalData(externalData);
 
-    //Motor::getRevolutions();
-    Motor::getRevolutions();
-    Display::controllerTemp(Controller::getTemp());
-    Display::motorTemp(Motor::getTemp());
-    //Controller::getTemp();
-    //Motor::getTemp();
-    BMV::read();
-    MPPT::read();
+    Telemetry::Show();
+
+    //Serial.println("motor revols done");
+
     //sd_write_temp(motor_temp, controller_temp);
-    //Serial.println(Motor::getTemp());
-    //Serial.println(Controller::getTemp());
+    //Serial.println("sd write temp done");
 
 //    update_sd_writing_time();  //!!!!!!
 

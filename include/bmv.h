@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <WString.h>
 #include "storage.h"
-#include "dispaly.h"
+#include "telemetry.h"
 #include "define.h"
 
 namespace BMV {
