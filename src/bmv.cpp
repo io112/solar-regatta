@@ -1,7 +1,7 @@
 #include "bmv.h"
 
 namespace BMV {
-
+    SoftwareSerial BmvSerial(11, 12); // RX, TX
     void init(unsigned long baudRate) {
         if (BMV_ENABLED)
             BmvSerial.begin(baudRate);

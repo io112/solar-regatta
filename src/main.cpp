@@ -47,7 +47,7 @@ void loop() {
 
 
 //    Motor::getRevolutions();
-    Satellites::read();
+   // Satellites::read();
     String command = Display::read();
     String externalData = External::read();
     if (command != "")
@@ -55,10 +55,17 @@ void loop() {
     if (externalData != "")
         processExternalData(externalData);
 
-    //Serial.println("motor revols done");
-
+    //Motor::getRevolutions();
+    Motor::getRevolutions();
+    Display::controllerTemp(Controller::getTemp());
+    Display::motorTemp(Motor::getTemp());
+    //Controller::getTemp();
+    //Motor::getTemp();
+    BMV::read();
+    MPPT::read();
     //sd_write_temp(motor_temp, controller_temp);
-    //Serial.println("sd write temp done");
+    //Serial.println(Motor::getTemp());
+    //Serial.println(Controller::getTemp());
 
 //    update_sd_writing_time();  //!!!!!!
 

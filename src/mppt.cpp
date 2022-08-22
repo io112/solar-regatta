@@ -1,7 +1,7 @@
 #include "mppt.h"
 
 namespace MPPT {
-    SoftwareSerial mppt(11, 12); // RX, TX
+
 
     void init(unsigned long baudRate) {
         if (MPPT_ENABLED)

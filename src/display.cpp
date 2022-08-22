@@ -70,7 +70,7 @@ namespace Display {
     }
 
     void motorRevols(int revols) {
-        send("t10", "txt", String(revols));
+        send("t5", "txt", String(revols));
     }
 
 

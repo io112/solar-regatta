@@ -18,8 +18,8 @@ namespace Motor {
     int rotations = 0;
     bool was_white = 0;
     bool was_black = 0;
-    int r_motor_temp = 4700;   // resistor for motor temp sensor, om
-    double temp_vin = 4.7;   // voltage input used in voltage dividers for temp sensors
+    int r_motor_temp = 1000;   // resistor for motor temp sensor, om
+    double temp_vin = 3.3;   // voltage input used in voltage dividers for temp sensors
 
 
 //---------------- end---------------
