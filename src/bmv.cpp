@@ -54,8 +54,7 @@ namespace BMV {
                 }
                 if (BMV_cmd_name == "TTG") {     //Time to go
                     //Serial.println("ttg is found");
-                    if (BMV_cmd_value == "-1") BMV_cmd_value = "inf";
-                    Telemetry::TimeToGo(BMV_cmd_value);
+                    Telemetry::TimeToGo(BMV_cmd_value.toInt());
                 }
 
                 i = 0;

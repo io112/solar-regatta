@@ -2,16 +2,11 @@
 // Created by schtu on 12.05.2022.
 //
 
-#include "../src/telemetry.h"
-
+#include "telemetry.h"
 namespace Telemetry {
 
-
-    class JsonOutput {
-
-
-        JsonOutput() {
-            CreatetAt = "0";
+        JsonOutput::JsonOutput() {
+            CreatedAt = "0";
             ControllerWatts = 0;
             TimeToGo = 0;
             ControllerVolts = 0;
@@ -143,11 +138,6 @@ namespace Telemetry {
     }
 
 
-    void Speed(double Speed){
-        Data.SetSpeed(Speed);
-    }
-
-
     void PositionLat(double PositionLat){
         Data.SetPositionLat(PositionLat);
     }
@@ -161,9 +151,6 @@ namespace Telemetry {
         Data.SetSatellitesNum(SatellitesNum);
     }
 
-    string Show(){
-        return Data.Show();
+    void GetJSON(){
+        Data.GetJSON();
     }
-
-
-}

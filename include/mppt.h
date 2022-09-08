@@ -8,6 +8,7 @@
 #include <SoftwareSerial.h>
 #include <Arduino.h>
 #include <WString.h>
+#include "define.h"
 #include "telemetry.h"
 
 namespace MPPT {

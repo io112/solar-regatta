@@ -47,7 +47,7 @@ void processExternalData(String data) {
 void loop() {
 
 
-//    Motor::getRevolutions();
+    Motor::getRevolutions();
     Satellites::read();
     String command = Display::read();
     String externalData = External::read();
@@ -56,7 +56,7 @@ void loop() {
     if (externalData != "")
         processExternalData(externalData);
 
-    Telemetry::Show();
+    Telemetry::GetJSON();
 
     //Serial.println("motor revols done");
 

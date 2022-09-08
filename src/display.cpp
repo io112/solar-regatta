@@ -6,21 +6,21 @@ namespace Display {
 
     void init(unsigned long baud) {
         if (DISPLAY_ENABLED) {
-            DisplaySerial.begin(baud);  // открываем Serial-соединение с Nextion-модулем
+            RaspberrySerial.begin(baud);  // открываем Serial-соединение с Nextion-модулем
             Log::debug("display started", DISPLAY_MODULE);
         }
     }
 
     void commandEnd() {                     // команда поступающая в дисплей должна кончаться символами «0xFF0xFF0xFF»
         for (int i = 0; i < 3; i++) {
-            DisplaySerial.write(0xff);
+            RaspberrySerial.write(0xff);
         }
         Log::debug("command end", "");
     }
 
     void send(String name, String type, String value) {
         sprintf(buffer, "%s.%s=\"%s\"", name.c_str(), type.c_str(), value.c_str());
-        DisplaySerial.print(buffer);
+        RaspberrySerial.print(buffer);
         Log::monitor(buffer, DISPLAY_MODULE);
         // TODO: send to external
         commandEnd();
@@ -104,8 +104,8 @@ namespace Display {
         if (!DISPLAY_ENABLED)
             return "";
         String data = "";
-        while (DisplaySerial.available()) { // TODO: one bit one cicle
-            data += char(DisplaySerial.read());
+        while (RaspberrySerial.available()) { // TODO: one bit one cicle
+            data += char(RaspberrySerial.read());
             //Serial.println(dataDisplay.length());
         }
         if (data) {

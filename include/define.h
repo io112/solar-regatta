@@ -6,7 +6,7 @@
 // SERIALS
 #define MainSerial          Serial
 #define GPS_SERIAL          Serial1     // serial-порт к которому подключён GPS-модуль
-#define DisplaySerial       Serial2     // serial-порт к которому подключён Nextion-экран
+#define RaspberrySerial       Serial2     // serial-порт к которому подключён Raspberry
 #define mppt           Serial3     // serial-порт к которому подключён BMV702 (battery monitor)
 #define ExternalSerial      Serial      // serial-порт к которому подключён BMV702 (battery monitor)
 

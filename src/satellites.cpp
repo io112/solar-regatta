@@ -93,7 +93,7 @@ namespace Satellites {
 
     // выводим текущую скорость
     void printSpeed() {
-        Telemetry::Speed(float(nmea.getSpeed()));
+        //Telemetry::Speed(float(nmea.getSpeed()));
     }
 
     // выводим расстояние до точки отсчета

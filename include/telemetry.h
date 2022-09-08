@@ -4,14 +4,15 @@
 
 #ifndef BOAT_CONTROLLER_TELEMETRY_H
 #define BOAT_CONTROLLER_TELEMETRY_H
-#include "string.h"
-#include <nlohmann/json.hpp>
 
-using json = nlohmann::json;
+#include "define.h"
+#include <WString.h>
+#include <ArduinoJson.h>
 
 namespace Telemetry {
 
     class JsonOutput {
+
     private:
         string CreatedAt;
         long int ControllerWatts;
@@ -29,7 +30,7 @@ namespace Telemetry {
     public:
         JsonOutput();
 
-        void SetCreatedAt(string CreatedAt);
+        void SetCreatedAt(String CreatedAt);
 
         void SetControllerWatts(long int Watts);
 
@@ -45,18 +46,16 @@ namespace Telemetry {
 
         void SetMotorRevols(int Revols);
 
-        void SetSpeed(double Speed);
-
         void SetPositionLat(double PositionLat);
 
         void SetPositionLng(double PositionLng);
 
         void SetSatellitesNum(int SatellitesNum);
 
-        string Show();
+        void GetJSON();
     };
 
-    void CreatedAt(string CreatedAt);
+    void CreatedAt(String CreatedAt);
 
     void ControllerWatts(long int Watts);
 
@@ -72,16 +71,14 @@ namespace Telemetry {
 
     void MotorRevols(int Revols);
 
-    void Speed(double Speed);
-
     void PositionLat(double PositionLat);
 
     void PositionLng(double PositionLng);
 
     void SatellitesNum(int SatellitesNum);
 
-    String Show
+    void GetJSON();
+
 
 }
 #endif //BOAT_CONTROLLER_TELEMETRY_H
-x
