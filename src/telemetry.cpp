@@ -20,86 +20,79 @@ namespace Telemetry {
             SatellitesNum = 0;
         }
 
-        void SetCreatedAt(string CreatedAt){
+        void JsonOutput::SetCreatedAt(String CreatedAt){
             this->CreatedAt = CreatedAt;
         }
 
-        void SetControllerWatts(long int Watts) {
+        void JsonOutput::SetControllerWatts(long int Watts) {
             this->ControllerWatts = Watts;
         }
 
 
-        void SetTimeToGo(int TimeToGo) {
+        void JsonOutput::SetTimeToGo(int TimeToGo) {
             this->TimeToGo = TimeToGo;
         }
 
 
-        void SetControllerVolts(long int Volts) {
+        void JsonOutput::SetControllerVolts(long int Volts) {
             this->ControllerVolts = Volts;
         }
 
 
-        void SetMPPTVolts(long int Volts) {
+        void JsonOutput::SetMPPTVolts(long int Volts) {
             this->MPPTVolts = Volts;
         }
 
 
-        void SetMPPTWatts(long int Watts) {
+        void JsonOutput::SetMPPTWatts(long int Watts) {
             this->MPPTWatts = Watts;
         }
 
 
-        void SetMotorTemp(double Temperature) {
+        void JsonOutput::SetMotorTemp(double Temperature) {
             this->MotorTemp = Temperature;
         }
 
 
-        void SetMotorRevols(int Revols) {
+        void JsonOutput::SetMotorRevols(int Revols) {
             this->MotorRevols = Revols;
         }
 
 
-        void SetSpeed(double Speed) {
-            this->Speed = Speed;
-        }
-
-
-        void SetPositionLat(double PositionLat) {
+        void JsonOutput::SetPositionLat(double PositionLat) {
             this->PositionLat = PositionLat;
         }
 
 
-        void SetPositionLng(double PositionLng) {
+        void JsonOutput::SetPositionLng(double PositionLng) {
             this->PositionLng = PositionLng;
         }
 
-        void SetSatellitesNum(int SatellitesNum){
+        void JsonOutput::SetSatellitesNum(int SatellitesNum){
             this->SatellitesNum = SatellitesNum;
         }
 
-        string Show() {
-           json Out ={
-           {"CreatedAt:",CreatedAt},
-           {"ControllerWatts:", ControllerWatts},
-           {"TimeToGo:", TimeToGo},
-           {"ControllerVolts:", ControllerVolts},
-           {"MPPTVolts:", MPPTVolts},
-           {"MPPTWatts:", MPPTWatts},
-           {"MotorTemp:", MotorTemp},
-           {"MotorRevols:", MotorRevols},
-           {"Speed:", Speed},
-           {"PositionLat:", PositionLat},
-           {"PositionLng:", PositionLng},
-           {"SatellitesNum:", SatellitesNum}
-           };
-            return Out;
+        void JsonOutput::GetJSON() {
+            StaticJsonDocument<200> json;
+            json['created_at'] = JsonOutput::CreatedAt;
+            json['ControllerWatts'] = JsonOutput::ControllerWatts;
+            json['TimeToGo'] = JsonOutput::TimeToGo;
+            json['ControllerVolts'] = JsonOutput::ControllerVolts;
+            json['MPPTVolts'] = JsonOutput::MPPTVolts;
+            json['MPPTWatts'] = JsonOutput::MPPTWatts;
+            json['MotorTemp'] = JsonOutput::MotorTemp;
+            json['MotorRevols'] = JsonOutput::ControllerWatts;
+            json['PositionLat'] = JsonOutput::PositionLat;
+            json['PositionLat'] = JsonOutput::PositionLat;
+            json['PositionLng'] = JsonOutput::PositionLng;
+            json['SatellitesNum'] = JsonOutput::SatellitesNum;
+            serializeJson(json, RaspberrySerial);
         }
 
-    };
+        JsonOutput Data = JsonOutput();
 
-    JsonOutput Data();
 
-    void CreatedAt(string CreatedAt){
+    void CreatedAt(String CreatedAt){
         Data.SetCreatedAt(CreatedAt);
     }
 
@@ -154,3 +147,5 @@ namespace Telemetry {
     void GetJSON(){
         Data.GetJSON();
     }
+
+};

@@ -14,7 +14,7 @@ namespace Telemetry {
     class JsonOutput {
 
     private:
-        string CreatedAt;
+        String CreatedAt;
         long int ControllerWatts;
         int TimeToGo;
         long int ControllerVolts;
