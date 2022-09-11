@@ -49,12 +49,8 @@ void loop() {
 
     Motor::getRevolutions();
     Satellites::read();
-    String command = Display::read();
-    String externalData = External::read();
-    if (command != "")
-        processCommand(command);
-    if (externalData != "")
-        processExternalData(externalData);
+    MPPT::read();
+    BMV::read();
 
     Telemetry::GetJSON();
 

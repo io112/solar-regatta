@@ -18,4 +18,8 @@ namespace Controller {
         //Serial.println(temp);
         return temp;
     }
+
+    void read() {
+
+    }
 }
