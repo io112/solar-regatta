@@ -79,6 +79,6 @@ namespace Telemetry {
 
     void GetJSON();
 
-
+    void init(long long baud);
 }
 #endif //BOAT_CONTROLLER_TELEMETRY_H

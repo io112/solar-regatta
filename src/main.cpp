@@ -22,6 +22,7 @@
 
 void setup() {
     MainSerial.begin(9600);
+    Telemetry::init(9600);
     Display::init(9600);
     BMV::init(19200);
     MPPT::init(19200);
