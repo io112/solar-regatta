@@ -88,6 +88,7 @@ namespace Telemetry {
         json["position_lng"] = JsonOutput::PositionLng;
         json["satellites_num"] = JsonOutput::SatellitesNum;
         serializeJson(json, RaspberrySerial);
+        RaspberrySerial.println();
     }
 
     JsonOutput Data = JsonOutput();
