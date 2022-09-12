@@ -76,17 +76,17 @@ namespace Telemetry {
     void JsonOutput::GetJSON() {
         DynamicJsonDocument json(2048);
         json["created_at"] = JsonOutput::CreatedAt;
-        json["ControllerWatts"] = JsonOutput::ControllerWatts;
-        json["TimeToGo"] = JsonOutput::TimeToGo;
-        json["ControllerVolts"] = JsonOutput::ControllerVolts;
-        json["MPPTVolts"] = JsonOutput::MPPTVolts;
-        json["MPPTWatts"] = JsonOutput::MPPTWatts;
-        json["MotorTemp"] = JsonOutput::MotorTemp;
-        json["MotorRevols"] = JsonOutput::ControllerWatts;
-        json["PositionLat"] = JsonOutput::PositionLat;
-        json["PositionLat"] = JsonOutput::PositionLat;
-        json["PositionLng"] = JsonOutput::PositionLng;
-        json["SatellitesNum"] = JsonOutput::SatellitesNum;
+        json["controller_watts"] = JsonOutput::ControllerWatts;
+        json["time_to_go"] = JsonOutput::TimeToGo;
+        json["controller_volts"] = JsonOutput::ControllerVolts;
+        json["MPPT_volts"] = JsonOutput::MPPTVolts;
+        json["MPPT_watts"] = JsonOutput::MPPTWatts;
+        json["motor_temp"] = JsonOutput::MotorTemp;
+        json["motor_revols"] = JsonOutput::ControllerWatts;
+        json["position_lat"] = JsonOutput::PositionLat;
+        json["position_lat"] = JsonOutput::PositionLat;
+        json["position_lng"] = JsonOutput::PositionLng;
+        json["satellites_num"] = JsonOutput::SatellitesNum;
         serializeJson(json, RaspberrySerial);
     }
 
