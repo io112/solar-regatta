@@ -5,7 +5,7 @@
 
 // SERIALS
 #define MainSerial          Serial1
-#define GPS_SERIAL          Serial1     // serial-порт к которому подключён GPS-модуль
+#define GPS_SERIAL          Serial2     // serial-порт к которому подключён GPS-модуль
 #define RaspberrySerial       Serial     // serial-порт к которому подключён Raspberry
 #define mppt           Serial3     // serial-порт к которому подключён BMV702 (battery monitor)
 #define ExternalSerial      Serial1      // serial-порт к которому подключён BMV702 (battery monitor)
@@ -32,5 +32,5 @@
 // COMMANDS
 #define COMMAND_REMEMBER    "set_point_A"
 
-#define LOG_LEVEL 1
+#define LOG_LEVEL 10
 #endif //SOLAR_DEFINE_H

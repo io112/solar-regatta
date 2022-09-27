@@ -22,7 +22,7 @@
 
 void setup() {
     MainSerial.begin(9600);
-    Telemetry::init(9600);
+    Telemetry::init(115200);
     Display::init(9600);
     BMV::init(19200);
     MPPT::init(19200);
@@ -48,14 +48,14 @@ void processExternalData(String data) {
 void loop() {
 
 
-    Motor::getRevolutions();
+    //Motor::getRevolutions();
     Satellites::read();
-    MPPT::read();
-    BMV::read();
+   // MPPT::read();
+   // BMV::read();
 
     Telemetry::GetJSON();
 
-    //Serial.println("motor revols done");
+    //Serial.println(GPS_SERIAL.available());
 
     //sd_write_temp(motor_temp, controller_temp);
     //Serial.println("sd write temp done");

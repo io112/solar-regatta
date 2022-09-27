@@ -56,12 +56,15 @@ namespace Satellites {
 
     void init(unsigned long baudRate) {
         if (SATELLITES_ENABLED) {
+
             GPS_SERIAL.begin(baudRate);
+
             nmea.setUnknownSentenceHandler(printUnknownSentence);
             MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB");
             MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB,RMC,1,GGA,1");
             MicroNMEA::sendSentence(GPS_SERIAL, "$PNVGNME,2,9,1");
             Log::debug("init satellite done", SATELLITES_MODULE);
+
         }
     }
 
@@ -69,6 +72,7 @@ namespace Satellites {
     void logCoords() {
         Log::monitor("coords: lat: " + String(CurrentPoint.lat) + ", lng: " + String(CurrentPoint.lng),
                      SATELLITES_MODULE);
+
     }
 
     // выводим установленную точку
@@ -82,13 +86,15 @@ namespace Satellites {
         Telemetry::SatellitesNum(nmea.getNumSatellites());
         Log::info(String(nmea.getNumSatellites()), SATELLITES_MODULE);
         logCoords();
+        Serial.println(nmea.getNumSatellites());
     }
 
     // выводим текущее время
     void printTime() {
         char *c = new char[16];
-        sprintf(c, "%d:%d:%d", nmea.getHour(), nmea.getMinute(), nmea.getSecond());
+        sprintf(c, "%d:%d:%d", nmea.getYear(), nmea.getMonth(), nmea.getDay());
         Telemetry::CreatedAt(c);
+        Serial.println(c);
     }
 
     // выводим текущую скорость
@@ -112,10 +118,13 @@ namespace Satellites {
     }
 
     void readCurrentPoint() {
-        CurrentPoint.lat = nmea.getLatitude() / 1000000;
-        CurrentPoint.lng = nmea.getLongitude() / 1000000;
+        CurrentPoint.lat = double(nmea.getLatitude()) / 1000000;
+        CurrentPoint.lng = double(nmea.getLongitude()) / 1000000;
         Telemetry::PositionLat(CurrentPoint.lat);
         Telemetry::PositionLng(CurrentPoint.lng);
+        Serial.println(String(CurrentPoint.lat)+" "+String(CurrentPoint.lng));
+       // Serial.println(double(nmea.getLatitude()) / 1000000);
+        //Serial.println(String(1234567.0/100000));
     }
 
     void checkLap() {
@@ -147,6 +156,7 @@ namespace Satellites {
             return;
         }
         if (GPS_SERIAL.available()) {  // считываем данные и парсим
+            //Serial.println("gps_start");
             char c = GPS_SERIAL.read();
             if (nmea.process(c)) {
                 readCurrentPoint();
