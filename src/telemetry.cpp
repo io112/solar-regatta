@@ -7,17 +7,18 @@
 namespace Telemetry {
 
     JsonOutput::JsonOutput() {
-        this->CreatedAt = "2022-09-24T18:16:45.000000";
-        this->ControllerWatts = 40;
-        this->TimeToGo = 3600;
-        this->ControllerVolts = 2;
-        this->MPPTVolts = 48;
-        this->MPPTWatts = 3;
-        this->MotorTemp = 15;
-        this->MotorRevols = 2500;
-        this->Speed = 12;
-        this->PositionLat = 55.567345;
-        this->PositionLng = 35.234262;
+        this->CreatedAt = "0";
+        this->ControllerWatts = 0;
+        this->TimeToGo = 0;
+        this->ControllerVolts = 0;
+        this->MPPTVolts = 0;
+        this->MPPTWatts = 0;
+        this->MotorTemp = 0;
+        this->ControllerTemp = 0;
+        this->MotorRevols = 0;
+        this->Speed = 0;
+        this->PositionLat = 0;
+        this->PositionLng = 0;
         this->SatellitesNum = 6;
     }
 
@@ -54,6 +55,10 @@ namespace Telemetry {
         this->MotorTemp = Temperature;
     }
 
+    void JsonOutput::SetControllerTemp(double Temperature) {
+        this->ControllerTemp = Temperature;
+    }
+
 
     void JsonOutput::SetMotorRevols(int Revols) {
         this->MotorRevols = Revols;
@@ -82,6 +87,7 @@ namespace Telemetry {
         json["MPPT_volts"] = JsonOutput::MPPTVolts;
         json["MPPT_watts"] = JsonOutput::MPPTWatts;
         json["motor_temp"] = JsonOutput::MotorTemp;
+        json["controller_temp"] = JsonOutput::ControllerTemp;
         json["motor_revols"] = JsonOutput::ControllerWatts;
         json["position_lat"] = JsonOutput::PositionLat;
         json["position_lat"] = JsonOutput::PositionLat;
@@ -125,6 +131,10 @@ namespace Telemetry {
 
     void MotorTemp(double Temperature) {
         Data.SetMotorTemp(Temperature);
+    }
+
+    void ControllerTemp(double Temperature) {
+        Data.SetControllerTemp(Temperature);
     }
 
 

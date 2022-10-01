@@ -21,6 +21,7 @@ namespace Telemetry {
         long int MPPTVolts;
         long int MPPTWatts;
         double MotorTemp;
+        double ControllerTemp;
         int MotorRevols;
         double Speed;
         double PositionLat;
@@ -43,6 +44,8 @@ namespace Telemetry {
         void SetMPPTWatts(long int Watts);
 
         void SetMotorTemp(double Temperature);
+
+        void SetControllerTemp(double Temperature);
 
         void SetMotorRevols(int Revols);
 
@@ -68,6 +71,8 @@ namespace Telemetry {
     void MPPTWatts(long int Watts);
 
     void MotorTemp(double Temperature);
+
+    void ControllerTemp(double Temperature);
 
     void MotorRevols(int Revols);
 

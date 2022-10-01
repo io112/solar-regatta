@@ -19,7 +19,4 @@ namespace Controller {
         return temp;
     }
 
-    void read() {
-
-    }
 }

@@ -7,13 +7,12 @@
 #define MainSerial          Serial1
 #define GPS_SERIAL          Serial2     // serial-порт к которому подключён GPS-модуль
 #define RaspberrySerial       Serial     // serial-порт к которому подключён Raspberry
-#define mppt           Serial3     // serial-порт к которому подключён BMV702 (battery monitor)
+#define mppt           Serial3     // serial-порт к которому подключён MPPT контроллер
 #define ExternalSerial      Serial1      // serial-порт к которому подключён BMV702 (battery monitor)
 
 
 // ENABLE MODULES
 #define SATELLITES_ENABLED  1
-#define DISPLAY_ENABLED     0
 #define BMV_ENABLED         1
 #define MPPT_ENABLED        1
 #define STORAGE_ENABLED     0
@@ -23,7 +22,6 @@
 #define SATELLITES_MODULE   "SATELLITES"
 #define BMV_MODULE          "BMV"
 #define CONTROLLER_MODULE   "CONTROLLER"
-#define DISPLAY_MODULE      "DISPLAY"
 #define MOTOR_MODULE        "MOTOR"
 #define MPPT_MODULE         "MPPT"
 #define STORAGE_MODULE      "STORAGE"
