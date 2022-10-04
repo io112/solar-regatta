@@ -6,14 +6,15 @@
 #define SOLAR_MOTOR_H
 
 #include <Arduino.h>
-#include "dispaly.h"
+#include "telemetry.h"
 
 namespace Motor {
 #define revolutionMeter A2
 #define tempSensor A0
 
-    int getRevolutions();
-    double getTemp();
+    void getRevolutions();
+    void getTemp();
+    void read();
 }
 
 #endif //SOLAR_MOTOR_H

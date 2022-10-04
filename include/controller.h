@@ -6,11 +6,13 @@
 #define SOLAR_CONTROLLER_H
 
 #include <Arduino.h>
+#include "telemetry.h"
 
 namespace Controller {
 #define controller_temp_sensor A1
 
-    double getTemp();
+    void getTemp();
+    void read();
 }
 
 #endif //SOLAR_CONTROLLER_H

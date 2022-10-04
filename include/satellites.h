@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <TroykaGPS.h>
 #include <MicroNMEA.h>
-#include "dispaly.h"
+#include "telemetry.h"
 #include "log.h"
 #include "math.h"
 

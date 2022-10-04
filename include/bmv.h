@@ -1,10 +1,10 @@
 #ifndef SOLAR_BMV_H
 #define SOLAR_BMV_H
 
+#include <SoftwareSerial.h>
 #include <Arduino.h>
 #include <WString.h>
-#include "storage.h"
-#include "dispaly.h"
+#include "telemetry.h"
 #include "define.h"
 
 namespace BMV {

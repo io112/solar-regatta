@@ -1,7 +1,7 @@
 #include "bmv.h"
 
 namespace BMV {
-
+    SoftwareSerial BmvSerial(11, 12); // RX, TX
     void init(unsigned long baudRate) {
         if (BMV_ENABLED)
             BmvSerial.begin(baudRate);
@@ -42,7 +42,7 @@ namespace BMV {
 //                if (is_it_sd_writing_time()) sd_write_data(BMV_cmd_value, "watts_b.txt");
                     // TODO: storage write
                     BMV_cmd_value_int = BMV_cmd_value.toInt();
-                    Display::controllerWatts(BMV_cmd_value_int);
+                    Telemetry::ControllerWatts(BMV_cmd_value_int);
                     //Serial.println(BMV_cmd_value_int);
                 }
                 if (BMV_cmd_name == "V") {     // Volts
@@ -50,12 +50,11 @@ namespace BMV {
 //                if (is_it_sd_writing_time()) sd_write_data(BMV_cmd_value, "volts_b.txt");
                     // TODO: storage write
                     BMV_cmd_value_int = BMV_cmd_value.toInt() / 1000; //mV -> V
-                    Display::controllerVolts(BMV_cmd_value_int);
+                    Telemetry::ControllerVolts(BMV_cmd_value_int);
                 }
                 if (BMV_cmd_name == "TTG") {     //Time to go
                     //Serial.println("ttg is found");
-                    if (BMV_cmd_value == "-1") BMV_cmd_value = "inf";
-                    Display::timeToGo(BMV_cmd_value);
+                    Telemetry::TimeToGo(BMV_cmd_value.toInt());
                 }
 
                 i = 0;

@@ -18,14 +18,14 @@ namespace Motor {
     int rotations = 0;
     bool was_white = 0;
     bool was_black = 0;
-    int r_motor_temp = 4700;   // resistor for motor temp sensor, om
-    double temp_vin = 4.7;   // voltage input used in voltage dividers for temp sensors
+    int r_motor_temp = 1000;   // resistor for motor temp sensor, om
+    double temp_vin = 3.3;   // voltage input used in voltage dividers for temp sensors
 
 
 //---------------- end---------------
 
 
-    int getRevolutions() {
+    void getRevolutions() {
         if (!revol_count_working) {
             start_time_revolutions = millis();
             revol_count_working = 1;
@@ -36,7 +36,7 @@ namespace Motor {
             start_time_revolutions = millis();
             rotations = 0;
             revol_count_working = 0;
-            Display::motorRevols(rotations_per_min);
+            Telemetry::MotorRevols(rotations_per_min);
             //Serial.println(rotations_per_min);
 //        sd_write_data(String(rotations_per_min), "revols.txt");
             //TODO: storage write
@@ -60,10 +60,9 @@ namespace Motor {
             //Serial.println((millis()-start_time)/1000);
 
         }
-        return rotations;
     }
 
-    double getTemp() {
+    void getTemp() {
         int val = analogRead(tempSensor);
         double vout = val / 204.6; //(204.6 = 1023/5) from (0,1024) to (0,5)
         double om = (r_motor_temp * vout) / (temp_vin - vout);
@@ -71,7 +70,12 @@ namespace Motor {
         om /= 100;
         //Serial.println(om);
         double temp = 0.0138 * om * om * om - 0.9088 * om * om + 30.77 * om - 130.73;
-        return temp;
+        Telemetry::MotorTemp(temp);
+    }
+
+    void read(){
+        getRevolutions();
+        getTemp();
     }
 
 }
