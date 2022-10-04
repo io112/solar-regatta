@@ -12,8 +12,9 @@ namespace Motor {
 #define revolutionMeter A2
 #define tempSensor A0
 
-    int getRevolutions();
-    double getTemp();
+    void getRevolutions();
+    void getTemp();
+    void read();
 }
 
 #endif //SOLAR_MOTOR_H

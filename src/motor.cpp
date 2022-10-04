@@ -25,7 +25,7 @@ namespace Motor {
 //---------------- end---------------
 
 
-    int getRevolutions() {
+    void getRevolutions() {
         if (!revol_count_working) {
             start_time_revolutions = millis();
             revol_count_working = 1;
@@ -60,10 +60,9 @@ namespace Motor {
             //Serial.println((millis()-start_time)/1000);
 
         }
-        return rotations;
     }
 
-    double getTemp() {
+    void getTemp() {
         int val = analogRead(tempSensor);
         double vout = val / 204.6; //(204.6 = 1023/5) from (0,1024) to (0,5)
         double om = (r_motor_temp * vout) / (temp_vin - vout);
@@ -72,7 +71,11 @@ namespace Motor {
         //Serial.println(om);
         double temp = 0.0138 * om * om * om - 0.9088 * om * om + 30.77 * om - 130.73;
         Telemetry::MotorTemp(temp);
-        return temp;
+    }
+
+    void read(){
+        getRevolutions();
+        getTemp();
     }
 
 }

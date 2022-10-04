@@ -83,7 +83,7 @@ namespace Satellites {
 
     // выводим количество видимых спутников
     void printSatellites() {
-        Telemetry::SatellitesNum(nmea.getNumSatellites());
+        //Telemetry::SatellitesNum(nmea.getNumSatellites());
         Log::info(String(nmea.getNumSatellites()), SATELLITES_MODULE);
         logCoords();
         Serial.println(nmea.getNumSatellites());
@@ -92,26 +92,10 @@ namespace Satellites {
     // выводим текущее время
     void printTime() {
         char *c = new char[16];
-        sprintf(c, "%d:%d:%d", nmea.getYear(), nmea.getMonth(), nmea.getDay());
+        sprintf(c, "%d-%d-%dT%d:%d:%d", nmea.getYear(), nmea.getMonth(), nmea.getDay(), nmea.getHour(), nmea.getMinute(), nmea.getSecond());
         Telemetry::CreatedAt(c);
         Serial.println(c);
     }
-
-    // выводим текущую скорость
-    void printSpeed() {
-        //Telemetry::Speed(float(nmea.getSpeed()));
-    }
-
-    // выводим расстояние до точки отсчета
-    void printDistance() {
-        //Display::distance(float(distance(PointA, CurrentPoint)));
-    }
-
-    // выводим количество кругов
-    void printLaps() {
-        //Display::laps(laps);
-    }
-
 
     void setPoint() {
         PointA = CurrentPoint;
@@ -161,12 +145,9 @@ namespace Satellites {
             if (nmea.process(c)) {
                 readCurrentPoint();
                 checkLap();
-                printLaps();
                 printPointA();
                 printSatellites();
                 printTime();
-                printSpeed();
-                printDistance();
             }
         }
     }

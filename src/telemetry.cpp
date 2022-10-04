@@ -17,7 +17,7 @@ namespace Telemetry {
         this->ControllerTemp = 0;
         this->MotorRevols = 0;
         this->Speed = 0;
-        this->PositionLat = 0;
+        this->PositionLat = 45.56;
         this->PositionLng = 0;
         this->SatellitesNum = 6;
     }
@@ -80,7 +80,7 @@ namespace Telemetry {
 
     void JsonOutput::GetJSON() {
         DynamicJsonDocument json(2048);
-        json["created_at"] = JsonOutput::CreatedAt;
+        if(JsonOutput::CreatedAt!="0") json["created_at"] = JsonOutput::CreatedAt;
         json["controller_watts"] = JsonOutput::ControllerWatts;
         json["time_to_go"] = JsonOutput::TimeToGo;
         json["controller_volts"] = JsonOutput::ControllerVolts;
@@ -88,8 +88,7 @@ namespace Telemetry {
         json["MPPT_watts"] = JsonOutput::MPPTWatts;
         json["motor_temp"] = JsonOutput::MotorTemp;
         json["controller_temp"] = JsonOutput::ControllerTemp;
-        json["motor_revols"] = JsonOutput::ControllerWatts;
-        json["position_lat"] = JsonOutput::PositionLat;
+        json["motor_revols"] = JsonOutput::MotorRevols;
         json["position_lat"] = JsonOutput::PositionLat;
         json["position_lng"] = JsonOutput::PositionLng;
         json["satellites_num"] = JsonOutput::SatellitesNum;

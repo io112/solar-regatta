@@ -11,7 +11,8 @@
 namespace Controller {
 #define controller_temp_sensor A1
 
-    double getTemp();
+    void getTemp();
+    void read();
 }
 
 #endif //SOLAR_CONTROLLER_H
