@@ -7,11 +7,20 @@
 
 #include <Arduino.h>
 #include "telemetry.h"
+#include "utils.h"
+#include "log.h"
 
 namespace Controller {
 #define controller_temp_sensor A1
 
     void getTemp();
+
+    double countTemp(double resistOm);
+
+    void readSensors();
+
+    void init();
+
     void read();
 }
 
