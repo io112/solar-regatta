@@ -8,7 +8,7 @@
 #include "external.h"
 #include "define.h"
 #include "telemetry.h"
-
+#include "transmitter.h"
 
 void setup() {
     MainSerial.begin(9600);
@@ -16,6 +16,7 @@ void setup() {
     BMV::init(19200);
     MPPT::init(19200);
     Satellites::init(9600);
+    Transmitter::init();
     Motor::init();
     Controller::init();
 
@@ -27,12 +28,12 @@ void setup() {
 
 void loop() {
 
-    Motor::getRevolutions();
     Controller::read();
     Motor::read();
     Satellites::read();
     MPPT::read();
     BMV::read();
+    Transmitter::read();
     Telemetry::GetJSON();
 
     Watchdog.reset(); // Периодический сброс watchdog, означающий, что устройство не зависло
