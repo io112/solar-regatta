@@ -10,9 +10,9 @@ namespace Transmitter {
     void splitAndTransmit() {
         index = 0;
         for (unsigned int i = 0;
-             i < RECEIVED_STRING_SIZE; i += TRANSMITTER_BUFFER_SIZE) { // TODO: not safe, last partition may be lost
-            strncpy(buffer, recievedString + i, sizeof(buffer));
-            radio.write(&buffer, sizeof(buffer));
+             i < RECEIVED_STRING_SIZE; i += TRANSMITTER_BUFFER_SIZE) {
+            strncpy(buffer, recievedString + i, TRANSMITTER_BUFFER_SIZE); // TODO: check receivedString index out of bound
+            radio.write(&buffer, TRANSMITTER_BUFFER_SIZE);
         }
     }
 
