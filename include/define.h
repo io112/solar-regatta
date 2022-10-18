@@ -7,7 +7,7 @@
 #define MainSerial          Serial1
 #define GPS_SERIAL          Serial3     // serial-порт к которому подключён GPS-модуль
 #define RaspberrySerial       Serial     // serial-порт к которому подключён Raspberry
-#define mppt           Serial2     // serial-порт к которому подключён MPPT контроллер
+#define mpptSerial           Serial2     // serial-порт к которому подключён MPPT контроллер
 #define ExternalSerial      Serial1      // serial-порт к которому подключён BMV702 (battery monitor)
 
 

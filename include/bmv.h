@@ -8,6 +8,9 @@
 #include "define.h"
 
 namespace BMV {
+    const String WATTS_KEY = "P";
+    const String VOLTS_KEY = "V";
+    const String TIME_TO_GO_KEY = "TTG";
 
     void init(unsigned long baudRate);
 
