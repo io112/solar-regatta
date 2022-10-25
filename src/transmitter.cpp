@@ -5,20 +5,19 @@ namespace Transmitter {
 
     char recievedString[RECEIVED_STRING_SIZE];
     char buffer[TRANSMITTER_BUFFER_SIZE];
-    int index;
 
     void splitAndTransmit() {
-        index = 0;
         for (unsigned int i = 0;
              i < RECEIVED_STRING_SIZE; i += TRANSMITTER_BUFFER_SIZE) {
-            strncpy(buffer, recievedString + i, TRANSMITTER_BUFFER_SIZE); // TODO: check receivedString index out of bound
+            strncpy(buffer, recievedString + i, TRANSMITTER_BUFFER_SIZE); 
             radio.write(&buffer, TRANSMITTER_BUFFER_SIZE);
         }
+        for (int i=0; i<=RECEIVED_STRING_SIZE; i++) receivedString[i] = ' ';
     }
 
 
     void transmit(String val) {
-        val.toCharArray(recievedString, sizeof(recievedString));
+        val.toCharArray(recievedString, RECEIVED_STRING_SIZE);
         splitAndTransmit();
     }
 
