@@ -12,6 +12,8 @@
 #include "telemetry.h"
 
 namespace MPPT {
+    const String WATTS_KEY = "PPV";
+    const String VOLTS_KEY = "V";
 
     void init(unsigned long baudRate);
 

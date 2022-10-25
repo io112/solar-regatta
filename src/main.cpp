@@ -8,7 +8,6 @@
 #include "external.h"
 #include "define.h"
 #include "telemetry.h"
-#include "SPI.h"
 
 
 void setup() {
@@ -17,22 +16,14 @@ void setup() {
     BMV::init(19200);
     MPPT::init(19200);
     Satellites::init(9600);
+    Motor::init();
+    Controller::init();
 
     Watchdog.enable(RESET_MODE, WDT_PRESCALER_512); // Режим сторжевого сброса , таймаут ~4с
 
 
     Log::info("-------------setup is done-----------", MAIN_MODULE);
 }
-
-void processCommand(String command) {
-    if (command == COMMAND_REMEMBER) {
-        Satellites::setPoint();
-    }
-}
-
-void processExternalData(String data) {
-}
-
 
 void loop() {
 
@@ -44,8 +35,6 @@ void loop() {
     BMV::read();
     Telemetry::GetJSON();
 
-    //Serial.println(GPS_SERIAL.available());
-
-    Watchdog.reset(); // Переодический сброс watchdog, означающий, что устройство не зависло
+    Watchdog.reset(); // Периодический сброс watchdog, означающий, что устройство не зависло
 }
 
