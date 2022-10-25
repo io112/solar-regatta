@@ -45,7 +45,7 @@ namespace MPPT {
 
     void init(unsigned long baudRate) {
         if (MPPT_ENABLED)
-            mpptSerial.begin(baudRate);
+            MpptSerial.begin(baudRate);
     }
 
     void read() {
@@ -55,8 +55,8 @@ namespace MPPT {
         int i = 0;
         char symbol;
 
-        while (mpptSerial.available()) {
-            symbol = mpptSerial.read();
+        while (MpptSerial.available()) {
+            symbol = MpptSerial.read();
             s[i] = symbol;
 
             if (symbol == 10) {                // the symbol which mean end of the line
