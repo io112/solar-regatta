@@ -5,13 +5,16 @@ namespace Transmitter {
 
     char recievedString[RECEIVED_STRING_SIZE];
     char buffer[TRANSMITTER_BUFFER_SIZE];
+    char symbol = 1;
 
     void splitAndTransmit() {
+        radio.write(&symbol, sizeof(symbol));
         for (unsigned int i = 0;
              i < RECEIVED_STRING_SIZE; i += TRANSMITTER_BUFFER_SIZE) {
             strncpy(buffer, recievedString + i, TRANSMITTER_BUFFER_SIZE); 
             radio.write(&buffer, TRANSMITTER_BUFFER_SIZE);
         }
+        radio.write(&symbol, sizeof(symbol));
         for (int i=0; i<=RECEIVED_STRING_SIZE; i++) receivedString[i] = ' ';
     }
 
