@@ -3,54 +3,68 @@
 namespace MPPT {
 
 
+    String getCommandName(const char *s) {
+        String res = "";
+        for (int j = 0; s[j] != 9; j++) {
+            res += s[j];          // collect chars of the command name
+        }
+        return res;
+    }
+
+
+    String getCommandValue(const char *s, const String &cmdName, int i) {
+        String res = "";
+
+        for (int j = cmdName.length() + 1; j < (i - 2); j++) {
+            res += s[j];
+        }
+        return res;
+    }
+
+
+    void processWatts(String value) {
+        Telemetry::MPPTWatts(value.toInt());
+    }
+
+    void processVolts(String value) {
+        long intValue = value.toInt() / 1000; //mV -> V
+        Telemetry::MPPTVolts(intValue);
+    }
+
+    void processCommand(const char *s, int i) {
+        String cmdName = getCommandName(s);
+        String cmdValue = getCommandValue(s, cmdName, i);
+
+        if (cmdName == WATTS_KEY) {      // Watts
+            processWatts(cmdValue);
+        }
+        if (cmdName == VOLTS_KEY) {     // Volts
+            processVolts(cmdValue);
+        }
+    }
+
     void init(unsigned long baudRate) {
         if (MPPT_ENABLED)
-            mppt.begin(baudRate);
+            MpptSerial.begin(baudRate);
     }
 
     void read() {
         if (!MPPT_ENABLED)
             return;
-        char symbol;
         char s[20];
-        String MPPT_cmd_name = ""; // command name
-        String MPPT_cmd_value = "";
-        long MPPT_cmd_value_int = 0;
         int i = 0;
+        char symbol;
 
-        //Serial.println("read mppt");
-
-        while (mppt.available()) {
-            symbol = mppt.read();
+        while (MpptSerial.available()) {
+            symbol = MpptSerial.read();
             s[i] = symbol;
-            //Serial.print(s[i]);
-            i++;
-            if (symbol == 10) {                // end of line
-                for (int j = 0; s[j] != 9; j++) {
-                    MPPT_cmd_name += s[j];          // collect chars of the value name
-                }
-                for (int j = MPPT_cmd_name.length() + 1; j < (i - 2); j++) {
-                    MPPT_cmd_value += s[j];
-                }
-                if (MPPT_cmd_name == "V") {      //Volts
-                    //Serial.println(MPPT_cmd_value);
-//                if (is_it_sd_writing_time()) sd_write_data(MPPT_cmd_value, "volts_m.txt");
-                    // TODO: storage write
-                    MPPT_cmd_value_int = MPPT_cmd_value.toInt() / 1000; //mV -> V
-                    Telemetry::MPPTVolts(MPPT_cmd_value_int);
-                }
-                if (MPPT_cmd_name == "PPV") {      // Panel power
-//                if (is_it_sd_writing_time()) sd_write_data(MPPT_cmd_value, "w_panel.txt");
-                    // TODO: storage write
 
-                    MPPT_cmd_value_int = MPPT_cmd_value.toInt();
-                    Telemetry::MPPTWatts(MPPT_cmd_value_int);
-                }
+            if (symbol == 10) {                // the symbol which mean end of the line
+                processCommand(s,  i);
                 i = 0;
-                MPPT_cmd_value = "";
-                MPPT_cmd_name = "";
-                MPPT_cmd_value_int = 0;
             }
+
+            i++;
         }
     }
 }

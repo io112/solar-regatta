@@ -57,12 +57,12 @@ namespace Satellites {
     void init(unsigned long baudRate) {
         if (SATELLITES_ENABLED) {
 
-            GPS_SERIAL.begin(baudRate);
+            GpsSerial.begin(baudRate);
 
             nmea.setUnknownSentenceHandler(printUnknownSentence);
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB");
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PORZB,RMC,1,GGA,1");
-            MicroNMEA::sendSentence(GPS_SERIAL, "$PNVGNME,2,9,1");
+            MicroNMEA::sendSentence(GpsSerial, "$PORZB");
+            MicroNMEA::sendSentence(GpsSerial, "$PORZB,RMC,1,GGA,1");
+            MicroNMEA::sendSentence(GpsSerial, "$PNVGNME,2,9,1");
             Log::debug("init satellite done", SATELLITES_MODULE);
 
         }
@@ -139,9 +139,9 @@ namespace Satellites {
         if (!SATELLITES_ENABLED) {
             return;
         }
-        if (GPS_SERIAL.available()) {  // считываем данные и парсим
+        if (GpsSerial.available()) {  // считываем данные и парсим
             //Serial.println("gps_start");
-            char c = GPS_SERIAL.read();
+            char c = GpsSerial.read();
             if (nmea.process(c)) {
                 readCurrentPoint();
                 checkLap();
