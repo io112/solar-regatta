@@ -13,6 +13,12 @@ namespace Transmitter {
 #define PIN_CSN 9 //Номер пина, к которому подключен вывод CSN
 #define TRANSMITTER_BUFFER_SIZE 32
 
+    const String PAYLOAD_REQUEST = "Waiting for a new Payload";
+    const String PAYLOAD_RECEIVED = "Got a new Payload";
+    const String PAYLOAD_SENDING = "Start Sending";
+    const String PAYLOAD_SENT = "Sent";
+
+
     void init();
 
     void receiveData();
