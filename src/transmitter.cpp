@@ -19,7 +19,7 @@ namespace Transmitter {
              i < RECEIVED_STRING_SIZE; i += TRANSMITTER_BUFFER_SIZE - 1) {
             receivedString.substring(i).toCharArray(buffer, TRANSMITTER_BUFFER_SIZE);
             radio.write(&buffer, TRANSMITTER_BUFFER_SIZE);
-            delay(50);
+            delay(500);
         }
         radio.write(&symbol_stop, sizeof(symbol_stop));
         RaspberrySerial.println(PAYLOAD_SENT);
